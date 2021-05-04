@@ -22,6 +22,7 @@
     <th>County</th>
     <th>Country</th>
     <th>Postcode</th>
+    <th>Delete</th>
         </tr>";
 
    while ($row = mysqli_fetch_assoc($result)) {
@@ -36,6 +37,7 @@
                 <td>{$row['county']}</td>
                 <td>{$row['country']}</td>
                 <td>{$row['postcode']}</td>
+                <td><input type='checkbox' name='row_id[]' value=''  />
          </tr>";
     }
     echo "</table>";
