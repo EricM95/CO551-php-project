@@ -1,3 +1,4 @@
+
 <?php
     include("_includes/config.inc");
     include("_includes/dbconnect.inc");
@@ -5,15 +6,19 @@
 
     echo template("templates/partials/header.php");
     echo template("templates/partials/nav.php");
-    
-
+     
     $sql = "SELECT studentid, dob, firstname, lastname, house, town,
     county, country, postcode FROM student";
    $result = mysqli_query($conn, $sql);
+?>
 
-   echo "(<table border='1'>)";
-   echo "<tr>
-     <th><input type='checkbox' id='checkAll'> Select All </th>
+<!DOCTYPE html>
+<html>
+     <body>
+          <form method="post" action = "actionDelete.php" onsubmit="return deleteConfirm();">
+   <table class="table table-bordered">
+   <tr>
+     <th><input type="checkbox" name="checkAll" id="checkAll"> Select All </th>
     <th>Student ID</th>
     <th>Student First Name</th>
     <th>Student Last Name</th>
@@ -23,12 +28,14 @@
     <th>County</th>
     <th>Country</th>
     <th>Postcode</th>
-        </tr>";
+        </tr>
 
+        <?php
+        $i=0;
    while ($row = mysqli_fetch_assoc($result)) {
     
         echo "<tr>
-               <td><input type='checkbox' name='check[]' value='{$row['studentid']}'  />
+               <td><input type='checkbox' name='studentid[]' class='checkbox' value='{$row['studentid']}'  />
                 <td>{$row ['studentid']}</td>
                 <td> {$row['firstname']}</td>
                 <td>{$row['lastname']}</td>
@@ -40,11 +47,48 @@
                 <td>{$row['postcode']}</td>
          </tr>";
     }
+    $i++;
+?>
 
-    echo "</table>";
-    echo "<p align='center'><button type='submit' class='btn btn-danger' name='save'> Delete </button></p>";
+</table>
+   <p class = "text-center"><button type='submit' class='btn btn-danger' name='checkbox_delete'> Delete </button></p>
+</form>
+<script type="text/javascript">
+function deleteConfirm(){
+    var result = confirm("Do you really want to delete records?");
+    if(result){
+        return true;
+    }else{
+        return false;
+    }
+}
+$(document).ready(function(){
+    $('#check_all').on('click',function(){
+        if(this.checked){
+            $('.checkbox').each(function(){
+                this.checked = true;
+            });
+        }else{
+             $('.checkbox').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+    
+    $('.checkbox').on('click',function(){
+        if($('.checkbox:checked').length == $('.checkbox').length){
+            $('#check_all').prop('checked',true);
+        }else{
+            $('#check_all').prop('checked',false);
+        }
+    });
+});
+</script>
+<?php
 
    echo template("templates/partials/footer.php")
 ?>
+</body>
+</html>
 
 
