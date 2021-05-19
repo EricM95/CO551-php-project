@@ -1,42 +1,38 @@
-
 <?php
-    include("_includes/config.inc");
-    include("_includes/dbconnect.inc");
-    include("_includes/functions.inc");
+include("_includes/config.inc");
+include("_includes/dbconnect.inc");
+include("_includes/functions.inc");
 
-    echo template("templates/partials/header.php");
-    echo template("templates/partials/nav.php");
-     
-    $sql = "SELECT studentid, dob, firstname, lastname, house, town,
+echo template("templates/partials/header.php");
+echo template("templates/partials/nav.php");
+
+$sql = "SELECT studentid, dob, firstname, lastname, house, town,
     county, country, postcode FROM student";
-   $result = mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql);
 ?>
+<div class="container">
+    <form class="border border-white rounded" method="post" action="actionDelete.php" onsubmit="return deleteConfirm();">
+        <table class="table table-bordered">
+            <tr>
+                <th><input type="checkbox" name="checkAll" id="checkAll"> Select All </th>
+                <th>Student ID</th>
+                <th>Student First Name</th>
+                <th>Student Last Name</th>
+                <th>Date of Birth</th>
+                <th>Street Address</th>
+                <th>Town</th>
+                <th>County</th>
+                <th>Country</th>
+                <th>Postcode</th>
+            </tr>
 
-<!DOCTYPE html>
-<html>
-     <body>
-          <form method="post" action = "actionDelete.php" onsubmit="return deleteConfirm();">
-   <table class="table table-bordered">
-   <tr>
-     <th><input type="checkbox" name="checkAll" id="checkAll"> Select All </th>
-    <th>Student ID</th>
-    <th>Student First Name</th>
-    <th>Student Last Name</th>
-    <th>Date of Birth</th>
-    <th>Street Address</th>
-    <th>Town</th>
-    <th>County</th>
-    <th>Country</th>
-    <th>Postcode</th>
-        </tr>
+            <?php
+            $i = 0;
+            while ($row = mysqli_fetch_assoc($result)) {
 
-        <?php
-        $i=0;
-   while ($row = mysqli_fetch_assoc($result)) {
-    
-        echo "<tr>
+                echo "<tr>
                <td><input type='checkbox' name='studentid[]' class='checkbox' value='{$row['studentid']}'  />
-                <td>{$row ['studentid']}</td>
+                <td>{$row['studentid']}</td>
                 <td> {$row['firstname']}</td>
                 <td>{$row['lastname']}</td>
                 <td> {$row['dob']}</td>
@@ -46,49 +42,46 @@
                 <td>{$row['country']}</td>
                 <td>{$row['postcode']}</td>
          </tr>";
-    }
-    $i++;
-?>
+            }
+            $i++;
+            ?>
 
-</table>
-   <p class = "text-center"><button type='submit' class='btn btn-danger' name='checkbox_delete'> Delete </button></p>
-</form>
+        </table>
+        <p class="text-center"><button type='submit' class='btn btn-danger btn-lg btn-block' name='checkbox_delete'> Delete </button></p>
+    </form>
+</div>
 <script type="text/javascript">
-function deleteConfirm(){
-    var result = confirm("Do you really want to delete records?");
-    if(result){
-        return true;
-    }else{
-        return false;
+    function deleteConfirm() {
+        var result = confirm("Do you really want to delete records?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
-$(document).ready(function(){
-    $('#check_all').on('click',function(){
-        if(this.checked){
-            $('.checkbox').each(function(){
-                this.checked = true;
-            });
-        }else{
-             $('.checkbox').each(function(){
-                this.checked = false;
-            });
-        }
+    $(document).ready(function() {
+        $('#check_all').on('click', function() {
+            if (this.checked) {
+                $('.checkbox').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $('.checkbox').each(function() {
+                    this.checked = false;
+                });
+            }
+        });
+
+        $('.checkbox').on('click', function() {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#check_all').prop('checked', true);
+            } else {
+                $('#check_all').prop('checked', false);
+            }
+        });
     });
-    
-    $('.checkbox').on('click',function(){
-        if($('.checkbox:checked').length == $('.checkbox').length){
-            $('#check_all').prop('checked',true);
-        }else{
-            $('#check_all').prop('checked',false);
-        }
-    });
-});
 </script>
 <?php
 
-   echo template("templates/partials/footer.php")
+echo template("templates/partials/footer.php")
 ?>
-</body>
-</html>
-
-

@@ -4,7 +4,8 @@
     include("_includes/functions.inc");
 
     $rowCount = count($_POST["studentid"]);
-    for($i=0;$i<$rowCount;$i++) {
+    for($i=0;$i<$rowCount;$i++) 
+    {
     mysqli_query($conn, "DELETE FROM student WHERE studentid='" . $_POST["studentid"][$i] . "'");
     }
 
