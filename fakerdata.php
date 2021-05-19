@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 
 $faker = Faker\Factory::create('en_GB');
 
-for($i = 0; $i < 25; $i++) {
+for($i = 0; $i < 10; $i++) {
     $query = "INSERT INTO student (studentid, password, dob, firstname, lastname, house, town,
     county, country, postcode)
     VALUES ('". $faker->randomNumber($nbDigits = 8, $strict = true)."', '".$faker->password."', '".$faker->date($format = 'Y-m-d', $max = 'now')."', '".$faker->firstName($gender = null|'male'|'female')."', 

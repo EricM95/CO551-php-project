@@ -11,13 +11,13 @@ echo template("templates/partials/nav.php");
 <div class="container">
     <div class="row row-form justify-content-center">
         <form class="border rounded" action="actionAddStudent.php" method="post" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="form-group col">
                     <label for="firstname">First Name :</label>
                     <input type="text" class="form-control" name="firstname" placeholder="First name">
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col">
                     <label for="lastname">Last Name :</label>
                     <input type="text" class="form-control" name="lastname" placeholder="Last name">
                 </div>
@@ -28,19 +28,19 @@ echo template("templates/partials/nav.php");
                 <input type="text" class="form-control" name="house" placeholder="1234 Main St">
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="form-group col">
                     <label for="town">Town :</label>
                     <input type="text" class="form-control" name="town">
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col">
                     <label for="county">County :</label>
                     <input type="text" class="form-control" name="county">
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="row">
                 <div class="form-group col-md-6">
                     <label for="country">Country :</label>
                     <input type="text" class="form-control" name="country">
